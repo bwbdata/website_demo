@@ -34,25 +34,25 @@ const contactInfo = [
   {
     icon: '📧',
     title: '邮箱',
-    content: 'contact@blackwhitebee.com',
-    link: 'mailto:contact@blackwhitebee.com'
+    content: 'adolphbaofan@163.com',
+    link: 'mailto:adolphbaofan@163.com'
   },
-  {
-    icon: '📱',
-    title: '电话',
-    content: '+86 138-0000-0000',
-    link: 'tel:+8613800000000'
-  },
+  // {
+  //   icon: '📱',
+  //   title: '电话',
+  //   content: '+86 138-0000-0000',
+  //   link: 'tel:+8613800000000'
+  // },
   {
     icon: '💬',
     title: '微信',
-    content: 'BlackWhiteBee2024',
+    content: 'elecardone',
     link: ''
   },
   {
     icon: '📍',
     title: '地址',
-    content: '北京市朝阳区科技园区',
+    content: '浙江省杭州市-黄龙万科中心WeWork氪空间',
     link: ''
   }
 ]
