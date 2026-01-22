@@ -37,8 +37,11 @@ const navigateTo = (path: string) => {
     <div class="container">
       <div class="nav-content">
         <div class="logo" @click="navigateTo('/')">
-          <span class="logo-text">黑白蜂工作室</span>
-          <span class="logo-subtitle">Black & White Bee Studio</span>
+          <img src="/logo.png" alt="黑白蜂工作室" class="logo-image" />
+          <div class="logo-text-wrapper">
+            <span class="logo-text">黑白蜂工作室</span>
+            <span class="logo-subtitle">Black & White Bee Studio</span>
+          </div>
         </div>
 
         <div class="nav-links" :class="{ 'mobile-open': mobileMenuOpen }">
@@ -110,7 +113,8 @@ const navigateTo = (path: string) => {
 
 .logo {
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
   cursor: pointer;
   transition: transform 0.3s ease;
 }
@@ -119,19 +123,31 @@ const navigateTo = (path: string) => {
   transform: scale(1.05);
 }
 
+.logo-image {
+  height: 45px;
+  width: auto;
+  object-fit: contain;
+}
+
+.logo-text-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
 .logo-text {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 700;
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  line-height: 1.2;
 }
 
 .logo-subtitle {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--text-secondary);
-  margin-top: -4px;
+  margin-top: 2px;
 }
 
 .nav-links {
