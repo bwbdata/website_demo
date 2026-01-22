@@ -83,15 +83,6 @@ const timeline = ref([
 
 <template>
   <div class="about">
-    <div class="about-header">
-      <div class="container">
-        <h1 class="page-title fade-in">关于我们</h1>
-        <p class="page-description fade-in">
-          用技术驱动创新，用专业成就梦想
-        </p>
-      </div>
-    </div>
-
     <!-- 公司介绍 -->
     <section class="intro-section section">
       <div class="container">

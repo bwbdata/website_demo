@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
@@ -39,10 +39,16 @@ const services = ref<Service[]>([
 ])
 
 const stats = ref([
-  { number: '100+', label: '完成项目' },
-  { number: '50+', label: '合作客户' },
-  { number: '5年', label: '行业经验' },
-  { number: '98%', label: '客户满意度' }
+  { number: '100+', label: '完成项目', suffix: '' },
+  { number: '50+', label: '合作客户', suffix: '' },
+  { number: '5', label: '行业经验', suffix: '年' },
+  { number: '98', label: '客户满意度', suffix: '%' }
+])
+
+const techStack = ref([
+  'Vue.js', 'React', 'TypeScript', 'Node.js',
+  'Flutter', 'React Native', 'Python', 'Java',
+  'MySQL', 'MongoDB', 'Redis', 'Docker'
 ])
 
 const navigateToContact = () => {
@@ -52,44 +58,123 @@ const navigateToContact = () => {
 const navigateToPortfolio = () => {
   router.push('/portfolio')
 }
+
+// 数字滚动动画
+const animatedStats = ref(stats.value.map(() => 0))
+
+onMounted(() => {
+  // 数字动画
+  stats.value.forEach((stat, index) => {
+    const target = parseInt(stat.number)
+    const duration = 2000
+    const steps = 60
+    const increment = target / steps
+    let current = 0
+
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= target) {
+        animatedStats.value[index] = target
+        clearInterval(timer)
+      } else {
+        animatedStats.value[index] = Math.floor(current)
+      }
+    }, duration / steps)
+  })
+})
 </script>
 
 <template>
   <div class="home">
+    <!-- 背景动画 -->
+    <div class="bg-animation">
+      <div class="grid-lines"></div>
+      <div class="floating-particles">
+        <div v-for="i in 20" :key="i" class="particle" :style="{
+          left: Math.random() * 100 + '%',
+          top: Math.random() * 100 + '%',
+          animationDelay: Math.random() * 5 + 's',
+          animationDuration: (5 + Math.random() * 10) + 's'
+        }"></div>
+      </div>
+    </div>
+
     <!-- 英雄区域 -->
     <section class="hero">
       <div class="container">
         <div class="hero-content fade-in">
+          <div class="hero-badge">
+            <span class="badge-icon">⚡</span>
+            <span class="badge-text">大厂精英 · 专业团队</span>
+          </div>
           <h1 class="hero-title">
-            专业的技术团队<br />
-            为您打造卓越的数字产品
+            <span class="title-line">打造极致的</span>
+            <span class="title-highlight">数字化体验</span>
           </h1>
           <p class="hero-description">
-            我们专注于网站、APP、小程序等数字产品的定制开发<br />
-            用技术驱动创新，用专业成就梦想
+            汇聚阿里、字节、腾讯等大厂精英<br />
+            为您提供专业的网站、APP、小程序定制开发服务
           </p>
           <div class="hero-actions">
-            <button class="btn btn-primary" @click="navigateToContact">
-              立即咨询
+            <button class="btn btn-primary btn-glow" @click="navigateToContact">
+              <span>立即咨询</span>
+              <span class="btn-arrow">→</span>
             </button>
             <button class="btn btn-outline" @click="navigateToPortfolio">
               查看案例
             </button>
           </div>
+
+          <!-- 技术标签云 -->
+          <div class="tech-tags">
+            <span v-for="tech in techStack" :key="tech" class="tech-tag">
+              {{ tech }}
+            </span>
+          </div>
         </div>
 
         <div class="hero-visual">
-          <div class="floating-card card-1">
-            <div class="card-icon">💻</div>
-            <div class="card-text">Web开发</div>
+          <div class="code-window">
+            <div class="window-header">
+              <div class="window-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="window-title">project.tsx</div>
+            </div>
+            <div class="window-content">
+              <div class="code-line"><span class="code-keyword">const</span> <span class="code-var">project</span> = {</div>
+              <div class="code-line">  <span class="code-prop">quality</span>: <span class="code-string">'excellent'</span>,</div>
+              <div class="code-line">  <span class="code-prop">speed</span>: <span class="code-string">'fast'</span>,</div>
+              <div class="code-line">  <span class="code-prop">team</span>: <span class="code-string">'professional'</span></div>
+              <div class="code-line">}</div>
+            </div>
           </div>
-          <div class="floating-card card-2">
-            <div class="card-icon">📱</div>
-            <div class="card-text">移动应用</div>
-          </div>
-          <div class="floating-card card-3">
-            <div class="card-icon">🚀</div>
-            <div class="card-text">快速交付</div>
+
+          <div class="floating-elements">
+            <div class="float-card card-1">
+              <div class="card-icon">💻</div>
+              <div class="card-label">Web开发</div>
+            </div>
+            <div class="float-card card-2">
+              <div class="card-icon">📱</div>
+              <div class="card-label">移动应用</div>
+            </div>
+            <div class="float-card card-3">
+              <div class="card-icon">🚀</div>
+              <div class="card-label">快速交付</div>
+            </div>
+            <div class="float-card card-4">
+              <div class="card-icon">⚡</div>
+              <div class="card-label">高性能</div>
+            </div>
+            <div class="float-card card-5">
+              <div class="card-icon">🎨</div>
+              <div class="card-label">精美设计</div>
+            </div>
+            <div class="float-card card-6">
+              <div class="card-icon">🔒</div>
+              <div class="card-label">安全可靠</div>
+            </div>
           </div>
         </div>
       </div>
@@ -99,9 +184,15 @@ const navigateToPortfolio = () => {
     <section class="stats-section">
       <div class="container">
         <div class="stats-grid">
-          <div v-for="(stat, index) in stats" :key="index" class="stat-item scale-in">
-            <div class="stat-number">{{ stat.number }}</div>
+          <div v-for="(stat, index) in stats" :key="index" class="stat-item">
+            <div class="stat-number">
+              <span class="number-value">{{ animatedStats[index] }}</span>
+              <span class="number-suffix">{{ stat.suffix }}</span>
+            </div>
             <div class="stat-label">{{ stat.label }}</div>
+            <div class="stat-bar">
+              <div class="stat-bar-fill"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -194,6 +285,73 @@ const navigateToPortfolio = () => {
 <style scoped>
 .home {
   padding-top: 70px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景动画 */
+.bg-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.grid-lines {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(var(--border-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+.floating-particles {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  animation: particleFloat 10s infinite;
+  opacity: 0.6;
+}
+
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(50px);
+    opacity: 0;
+  }
 }
 
 /* 英雄区域 */
@@ -202,31 +360,98 @@ const navigateToPortfolio = () => {
   display: flex;
   align-items: center;
   position: relative;
-  overflow: hidden;
-  background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+  background: radial-gradient(ellipse at top, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
 }
 
 .hero .container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: 4rem;
   align-items: center;
-}
-
-.hero-content {
+  position: relative;
   z-index: 1;
 }
 
+.hero-content {
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+  border: 1px solid var(--accent-primary);
+  border-radius: 50px;
+  margin-bottom: 2rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
+  }
+}
+
+.badge-icon {
+  font-size: 1.2rem;
+}
+
+.badge-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+}
+
 .hero-title {
-  font-size: 3.5rem;
-  font-weight: 800;
-  line-height: 1.2;
+  font-size: 4rem;
+  font-weight: 900;
+  line-height: 1.1;
   margin-bottom: 1.5rem;
+}
+
+.title-line {
+  display: block;
   color: var(--text-primary);
 }
 
+.title-highlight {
+  display: block;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+}
+
+.title-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 200px;
+  height: 4px;
+  background: var(--accent-gradient);
+  border-radius: 2px;
+}
+
 .hero-description {
-  font-size: 1.25rem;
+  font-size: 1.2rem;
   color: var(--text-secondary);
   margin-bottom: 2.5rem;
   line-height: 1.8;
@@ -235,60 +460,233 @@ const navigateToPortfolio = () => {
 .hero-actions {
   display: flex;
   gap: 1rem;
+  margin-bottom: 3rem;
 }
 
+.btn-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.btn-glow:hover::before {
+  left: 100%;
+}
+
+.btn-arrow {
+  display: inline-block;
+  margin-left: 0.5rem;
+  transition: transform 0.3s;
+}
+
+.btn-glow:hover .btn-arrow {
+  transform: translateX(5px);
+}
+
+/* 技术标签云 */
+.tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.tech-tag {
+  padding: 0.5rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all 0.3s;
+  cursor: default;
+}
+
+.tech-tag:hover {
+  background: var(--accent-primary);
+  color: white;
+  border-color: var(--accent-primary);
+  transform: translateY(-2px);
+}
+
+/* 代码窗口 */
 .hero-visual {
   position: relative;
   height: 500px;
 }
 
-.floating-card {
-  position: absolute;
+.code-window {
   background: var(--bg-card);
-  border-radius: 16px;
-  padding: 1.5rem 2rem;
+  border-radius: 12px;
+  overflow: hidden;
   box-shadow: var(--shadow-xl);
-  display: flex;
-  align-items: center;
-  gap: 1rem;
   border: 1px solid var(--border-color);
-  animation: float 3s ease-in-out infinite;
+  animation: floatSlow 6s ease-in-out infinite;
 }
 
-.floating-card.card-1 {
-  top: 20%;
-  left: 10%;
-  animation-delay: 0s;
-}
-
-.floating-card.card-2 {
-  top: 50%;
-  right: 10%;
-  animation-delay: 1s;
-}
-
-.floating-card.card-3 {
-  bottom: 20%;
-  left: 20%;
-  animation-delay: 2s;
-}
-
-.card-icon {
-  font-size: 2rem;
-}
-
-.card-text {
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-@keyframes float {
+@keyframes floatSlow {
   0%, 100% {
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-20px);
+    transform: translateY(-15px);
   }
+}
+
+.window-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.window-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.window-dots span {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--text-tertiary);
+}
+
+.window-dots span:nth-child(1) {
+  background: #ff5f56;
+}
+
+.window-dots span:nth-child(2) {
+  background: #ffbd2e;
+}
+
+.window-dots span:nth-child(3) {
+  background: #27c93f;
+}
+
+.window-title {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.window-content {
+  padding: 1.5rem;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.95rem;
+  line-height: 1.8;
+}
+
+.code-line {
+  color: var(--text-primary);
+}
+
+.code-keyword {
+  color: #c678dd;
+}
+
+.code-var {
+  color: #e06c75;
+}
+
+.code-prop {
+  color: #61afef;
+}
+
+.code-string {
+  color: #98c379;
+}
+
+/* 浮动元素 */
+.floating-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.float-card {
+  position: absolute;
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: float 3s ease-in-out infinite;
+  backdrop-filter: blur(10px);
+}
+
+.float-card.card-1 {
+  top: 10%;
+  right: -10%;
+  animation-delay: 0s;
+}
+
+.float-card.card-2 {
+  top: 35%;
+  right: -20%;
+  animation-delay: 0.5s;
+}
+
+.float-card.card-3 {
+  top: 60%;
+  right: -15%;
+  animation-delay: 1s;
+}
+
+.float-card.card-4 {
+  top: 20%;
+  right: 10%;
+  animation-delay: 1.5s;
+}
+
+.float-card.card-5 {
+  top: 75%;
+  right: 5%;
+  animation-delay: 2s;
+}
+
+.float-card.card-6 {
+  top: 45%;
+  right: 5%;
+  animation-delay: 2.5s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(2deg);
+  }
+}
+
+.card-icon {
+  font-size: 1.5rem;
+}
+
+.card-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  white-space: nowrap;
 }
 
 /* 数据统计 */
@@ -297,36 +695,78 @@ const navigateToPortfolio = () => {
   background: var(--bg-secondary);
   border-top: 1px solid var(--border-color);
   border-bottom: 1px solid var(--border-color);
+  position: relative;
+  z-index: 1;
 }
 
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .stat-item {
   text-align: center;
+  position: relative;
 }
 
 .stat-number {
-  font-size: 3rem;
-  font-weight: 800;
+  font-size: 3.5rem;
+  font-weight: 900;
   background: var(--accent-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.25rem;
+}
+
+.number-value {
+  font-size: 3.5rem;
+}
+
+.number-suffix {
+  font-size: 2rem;
 }
 
 .stat-label {
   font-size: 1rem;
   color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.stat-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--border-color);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.stat-bar-fill {
+  height: 100%;
+  background: var(--accent-gradient);
+  animation: fillBar 2s ease-out forwards;
+}
+
+@keyframes fillBar {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
 }
 
 /* 服务介绍 */
 .services-section {
   background: var(--bg-primary);
+  position: relative;
+  z-index: 1;
 }
 
 .services-grid {
@@ -466,10 +906,73 @@ const navigateToPortfolio = () => {
 @media (max-width: 968px) {
   .hero .container {
     grid-template-columns: 1fr;
+    padding-top: 2rem;
+  }
+
+  .hero-badge {
+    margin-top: 1rem;
   }
 
   .hero-visual {
+    display: block;
+    height: 400px;
+    margin-top: 3rem;
+  }
+
+  .code-window {
     display: none;
+  }
+
+  .floating-elements {
+    position: relative;
+    height: 400px;
+  }
+
+  .float-card {
+    position: absolute;
+    font-size: 0.85rem;
+    padding: 0.75rem 1rem;
+  }
+
+  .float-card.card-1 {
+    top: 5%;
+    left: 5%;
+    right: auto;
+  }
+
+  .float-card.card-2 {
+    top: 5%;
+    right: 5%;
+  }
+
+  .float-card.card-3 {
+    top: 35%;
+    left: 10%;
+    right: auto;
+  }
+
+  .float-card.card-4 {
+    top: 35%;
+    right: 10%;
+  }
+
+  .float-card.card-5 {
+    top: 65%;
+    left: 5%;
+    right: auto;
+  }
+
+  .float-card.card-6 {
+    top: 65%;
+    right: 5%;
+  }
+
+  .card-icon {
+    font-size: 1.25rem;
+  }
+
+  .card-label {
+    font-size: 0.8rem;
   }
 
   .hero-title {
@@ -492,8 +995,17 @@ const navigateToPortfolio = () => {
 }
 
 @media (max-width: 640px) {
+  .hero-badge {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+
   .hero-title {
     font-size: 2rem;
+  }
+
+  .title-highlight::after {
+    width: 150px;
   }
 
   .hero-description {
@@ -506,6 +1018,57 @@ const navigateToPortfolio = () => {
 
   .hero-actions .btn {
     width: 100%;
+  }
+
+  .tech-tags {
+    gap: 0.5rem;
+  }
+
+  .tech-tag {
+    font-size: 0.75rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .hero-visual {
+    height: 350px;
+  }
+
+  .floating-elements {
+    height: 350px;
+  }
+
+  .float-card {
+    padding: 0.6rem 0.9rem;
+  }
+
+  .float-card.card-1 {
+    top: 5%;
+    left: 2%;
+  }
+
+  .float-card.card-2 {
+    top: 5%;
+    right: 2%;
+  }
+
+  .float-card.card-3 {
+    top: 35%;
+    left: 5%;
+  }
+
+  .float-card.card-4 {
+    top: 35%;
+    right: 5%;
+  }
+
+  .float-card.card-5 {
+    top: 65%;
+    left: 2%;
+  }
+
+  .float-card.card-6 {
+    top: 65%;
+    right: 2%;
   }
 
   .stats-grid {

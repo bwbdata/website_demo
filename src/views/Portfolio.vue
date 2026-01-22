@@ -95,15 +95,6 @@ const filterProjects = (category: string) => {
 
 <template>
   <div class="portfolio">
-    <div class="portfolio-header">
-      <div class="container">
-        <h1 class="page-title fade-in">项目案例</h1>
-        <p class="page-description fade-in">
-          我们为各行业客户提供专业的数字化解决方案
-        </p>
-      </div>
-    </div>
-
     <section class="section">
       <div class="container">
         <!-- 分类筛选 -->

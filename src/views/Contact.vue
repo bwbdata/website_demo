@@ -1,235 +1,69 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
-
-interface FormData {
-  name: string
-  email: string
-  phone: string
-  company: string
-  service: string
-  message: string
-}
-
-const formData = reactive<FormData>({
-  name: '',
-  email: '',
-  phone: '',
-  company: '',
-  service: '网站开发',
-  message: ''
-})
-
-const isSubmitting = ref(false)
-const submitSuccess = ref(false)
-
-const services = [
-  '网站开发',
-  'APP开发',
-  '小程序开发',
-  '功能定制',
-  '其他'
-]
-
 const contactInfo = [
+  {
+    icon: '💬',
+    title: '微信',
+    content: 'elecardone',
+    link: '',
+    hasQRCode: true
+  },
   {
     icon: '📧',
     title: '邮箱',
     content: 'adolphbaofan@163.com',
     link: 'mailto:adolphbaofan@163.com'
   },
-  // {
-  //   icon: '📱',
-  //   title: '电话',
-  //   content: '+86 138-0000-0000',
-  //   link: 'tel:+8613800000000'
-  // },
-  {
-    icon: '💬',
-    title: '微信',
-    content: 'elecardone',
-    link: ''
-  },
   {
     icon: '📍',
     title: '地址',
-    content: '浙江省杭州市-黄龙万科中心WeWork氪空间',
+    content: '浙江省杭州市-黄龙万科中心WeWork',
     link: ''
   }
 ]
-
-const socialLinks = [
-  { name: 'GitHub', icon: '🐙', url: '#' },
-  { name: '微信公众号', icon: '💬', url: '#' },
-  { name: '知乎', icon: '📝', url: '#' },
-  { name: 'Bilibili', icon: '📺', url: '#' }
-]
-
-const handleSubmit = async () => {
-  // 简单的表单验证
-  if (!formData.name || !formData.email || !formData.phone || !formData.message) {
-    alert('请填写所有必填项')
-    return
-  }
-
-  // 邮箱格式验证
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailRegex.test(formData.email)) {
-    alert('请输入有效的邮箱地址')
-    return
-  }
-
-  // 手机号格式验证
-  const phoneRegex = /^1[3-9]\d{9}$/
-  if (!phoneRegex.test(formData.phone)) {
-    alert('请输入有效的手机号码')
-    return
-  }
-
-  isSubmitting.value = true
-
-  // 模拟提交
-  setTimeout(() => {
-    isSubmitting.value = false
-    submitSuccess.value = true
-
-    // 重置表单
-    Object.assign(formData, {
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      service: '网站开发',
-      message: ''
-    })
-
-    // 3秒后隐藏成功提示
-    setTimeout(() => {
-      submitSuccess.value = false
-    }, 3000)
-  }, 1500)
-}
 </script>
 
 <template>
   <div class="contact">
-    <div class="contact-header">
-      <div class="container">
-        <h1 class="page-title fade-in">联系我们</h1>
-        <p class="page-description fade-in">
-          让我们一起将您的想法变为现实
-        </p>
-      </div>
-    </div>
-
     <section class="section">
       <div class="container">
         <div class="contact-content">
-          <!-- 联系表单 -->
-          <div class="contact-form-wrapper">
-            <h2 class="form-title">在线咨询</h2>
-            <p class="form-subtitle">填写表单，我们会尽快与您联系</p>
-
-            <form class="contact-form" @submit.prevent="handleSubmit">
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="name">姓名 *</label>
-                  <input
-                    id="name"
-                    v-model="formData.name"
-                    type="text"
-                    placeholder="请输入您的姓名"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="phone">手机号 *</label>
-                  <input
-                    id="phone"
-                    v-model="formData.phone"
-                    type="tel"
-                    placeholder="请输入手机号"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="email">邮箱 *</label>
-                  <input
-                    id="email"
-                    v-model="formData.email"
-                    type="email"
-                    placeholder="请输入邮箱地址"
-                    required
-                  />
-                </div>
-
-                <div class="form-group">
-                  <label for="company">公司名称</label>
-                  <input
-                    id="company"
-                    v-model="formData.company"
-                    type="text"
-                    placeholder="请输入公司名称（选填）"
-                  />
-                </div>
-              </div>
-
-              <div class="form-group">
-                <label for="service">服务类型 *</label>
-                <select id="service" v-model="formData.service" required>
-                  <option v-for="service in services" :key="service" :value="service">
-                    {{ service }}
-                  </option>
-                </select>
-              </div>
-
-              <div class="form-group">
-                <label for="message">项目描述 *</label>
-                <textarea
-                  id="message"
-                  v-model="formData.message"
-                  rows="6"
-                  placeholder="请简要描述您的项目需求..."
-                  required
-                ></textarea>
-              </div>
-
-              <button
-                type="submit"
-                class="btn btn-primary submit-btn"
-                :disabled="isSubmitting"
-              >
-                {{ isSubmitting ? '提交中...' : '提交咨询' }}
-              </button>
-
-              <div v-if="submitSuccess" class="success-message">
-                ✓ 提交成功！我们会尽快与您联系
-              </div>
-            </form>
-          </div>
-
           <!-- 联系信息 -->
           <div class="contact-info-wrapper">
             <h2 class="info-title">联系方式</h2>
             <p class="info-subtitle">多种方式与我们取得联系</p>
 
             <div class="contact-info-list">
-              <a
+              <div
                 v-for="(info, index) in contactInfo"
                 :key="index"
-                :href="info.link || '#'"
                 class="contact-info-item card"
-                :class="{ 'no-link': !info.link }"
+                :class="{ 'no-link': !info.link, 'has-qrcode': info.hasQRCode }"
               >
-                <div class="info-icon">{{ info.icon }}</div>
-                <div class="info-content">
-                  <div class="info-label">{{ info.title }}</div>
-                  <div class="info-value">{{ info.content }}</div>
+                <a
+                  v-if="info.link"
+                  :href="info.link"
+                  class="info-link"
+                >
+                  <div class="info-icon">{{ info.icon }}</div>
+                  <div class="info-content">
+                    <div class="info-label">{{ info.title }}</div>
+                    <div class="info-value">{{ info.content }}</div>
+                  </div>
+                </a>
+                <div v-else class="info-link">
+                  <div class="info-icon">{{ info.icon }}</div>
+                  <div class="info-content">
+                    <div class="info-label">{{ info.title }}</div>
+                    <div class="info-value">{{ info.content }}</div>
+                  </div>
                 </div>
-              </a>
+
+                <!-- 微信二维码 -->
+                <div v-if="info.hasQRCode" class="qrcode-display">
+                  <img src="/wechat-qrcode.png" alt="微信二维码" class="qrcode-image" />
+                  <p class="qrcode-tip">扫码添加微信</p>
+                </div>
+              </div>
             </div>
 
             <!-- 工作时间 -->
@@ -252,7 +86,7 @@ const handleSubmit = async () => {
             </div>
 
             <!-- 社交媒体 -->
-            <div class="social-links">
+            <!-- <div class="social-links">
               <h3 class="social-title">关注我们</h3>
               <div class="social-grid">
                 <a
@@ -266,7 +100,7 @@ const handleSubmit = async () => {
                   <span class="social-name">{{ social.name }}</span>
                 </a>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -343,9 +177,10 @@ const handleSubmit = async () => {
 
 /* 联系内容 */
 .contact-content {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 3rem;
+  display: flex;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 /* 表单 */
@@ -474,20 +309,58 @@ const handleSubmit = async () => {
 }
 
 .contact-info-item {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+  position: relative;
   padding: 1.25rem;
-  text-decoration: none;
   transition: all 0.3s ease;
 }
 
-.contact-info-item:not(.no-link):hover {
+.contact-info-item.has-qrcode {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.info-link {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+
+.contact-info-item:not(.no-link) .info-link:hover {
   transform: translateX(5px);
 }
 
 .contact-info-item.no-link {
   cursor: default;
+}
+
+/* 二维码显示 */
+.qrcode-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  background: var(--bg-secondary);
+  border-radius: 8px;
+  margin-top: 0.5rem;
+}
+
+.qrcode-image {
+  width: 180px;
+  height: 180px;
+  border-radius: 8px;
+  margin-bottom: 0.75rem;
+  border: 2px solid var(--border-color);
+}
+
+.qrcode-tip {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 600;
 }
 
 .info-icon {
