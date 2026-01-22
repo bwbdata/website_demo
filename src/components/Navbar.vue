@@ -19,7 +19,8 @@ const navItems = [
   { name: '首页', path: '/' },
   { name: '案例展示', path: '/portfolio' },
   { name: '关于我们', path: '/about' },
-  { name: '联系我们', path: '/contact' }
+  { name: '联系我们', path: '/contact' },
+  { name: '常见问题', path: '/faq' }
 ]
 
 const toggleMobileMenu = () => {

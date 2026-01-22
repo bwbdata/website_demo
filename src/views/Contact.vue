@@ -29,9 +29,6 @@ const contactInfo = [
         <div class="contact-content">
           <!-- 联系信息 -->
           <div class="contact-info-wrapper">
-            <h2 class="info-title">联系方式</h2>
-            <p class="info-subtitle">多种方式与我们取得联系</p>
-
             <div class="contact-info-list">
               <div
                 v-for="(info, index) in contactInfo"
@@ -75,72 +72,11 @@ const contactInfo = [
                   <span class="time">9:00 - 18:00</span>
                 </div>
                 <div class="work-hours-item">
-                  <span class="day">周六</span>
-                  <span class="time">10:00 - 17:00</span>
-                </div>
-                <div class="work-hours-item">
-                  <span class="day">周日</span>
-                  <span class="time">休息</span>
+                  <span class="day">周六、周日</span>
+                  <span class="time">打工人不休息</span>
                 </div>
               </div>
             </div>
-
-            <!-- 社交媒体 -->
-            <!-- <div class="social-links">
-              <h3 class="social-title">关注我们</h3>
-              <div class="social-grid">
-                <a
-                  v-for="social in socialLinks"
-                  :key="social.name"
-                  :href="social.url"
-                  class="social-link"
-                  :title="social.name"
-                >
-                  <span class="social-icon">{{ social.icon }}</span>
-                  <span class="social-name">{{ social.name }}</span>
-                </a>
-              </div>
-            </div> -->
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="faq-section section">
-      <div class="container">
-        <h2 class="section-title">常见问题</h2>
-        <p class="section-subtitle">
-          这里是一些客户经常询问的问题
-        </p>
-
-        <div class="faq-list">
-          <div class="faq-item card">
-            <h3 class="faq-question">项目开发周期一般多久？</h3>
-            <p class="faq-answer">
-              项目周期取决于具体需求和复杂度。一般来说，简单的网站需要2-4周，复杂的APP或小程序需要2-3个月。我们会在需求沟通后给出详细的时间规划。
-            </p>
-          </div>
-
-          <div class="faq-item card">
-            <h3 class="faq-question">如何收费？</h3>
-            <p class="faq-answer">
-              我们根据项目的具体需求、功能复杂度和开发周期来报价。会在充分了解需求后提供详细的报价方案，确保价格透明合理。
-            </p>
-          </div>
-
-          <div class="faq-item card">
-            <h3 class="faq-question">提供售后服务吗？</h3>
-            <p class="faq-answer">
-              是的，我们提供完善的售后服务。项目交付后提供3-6个月的免费维护期，之后可以选择年度维护服务。我们会及时响应和解决问题。
-            </p>
-          </div>
-
-          <div class="faq-item card">
-            <h3 class="faq-question">可以看到开发进度吗？</h3>
-            <p class="faq-answer">
-              当然可以。我们采用敏捷开发模式，会定期向客户展示开发进度，并及时沟通调整。客户可以随时了解项目状态。
-            </p>
           </div>
         </div>
       </div>
@@ -183,123 +119,12 @@ const contactInfo = [
   margin: 0 auto;
 }
 
-/* 表单 */
-.contact-form-wrapper {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 2.5rem;
-}
-
-.form-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-}
-
-.form-subtitle {
-  color: var(--text-secondary);
-  margin-bottom: 2rem;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.form-group label {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 0.95rem;
-}
-
-.form-group input,
-.form-group select,
-.form-group textarea {
-  padding: 0.875rem;
-  border: 2px solid var(--border-color);
-  border-radius: 8px;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  font-family: inherit;
-}
-
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-  outline: none;
-  border-color: var(--accent-primary);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.submit-btn {
-  width: 100%;
-  margin-top: 1rem;
-}
-
-.submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.success-message {
-  padding: 1rem;
-  background: #10b981;
-  color: white;
-  border-radius: 8px;
-  text-align: center;
-  font-weight: 600;
-  animation: slideInDown 0.3s ease-out;
-}
-
-@keyframes slideInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* 联系信息 */
 .contact-info-wrapper {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-}
-
-.info-title {
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 0.5rem;
-}
-
-.info-subtitle {
-  color: var(--text-secondary);
+  width: 100%;
 }
 
 .contact-info-list {
@@ -310,7 +135,7 @@ const contactInfo = [
 
 .contact-info-item {
   position: relative;
-  padding: 1.25rem;
+  padding: 1.5rem;
   transition: all 0.3s ease;
 }
 
@@ -342,29 +167,30 @@ const contactInfo = [
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1rem;
+  padding: 1.5rem;
   background: var(--bg-secondary);
-  border-radius: 8px;
+  border-radius: 12px;
   margin-top: 0.5rem;
 }
 
 .qrcode-image {
-  width: 180px;
-  height: 180px;
-  border-radius: 8px;
-  margin-bottom: 0.75rem;
+  width: 200px;
+  height: 200px;
+  border-radius: 12px;
+  margin-bottom: 1rem;
   border: 2px solid var(--border-color);
+  box-shadow: var(--shadow-md);
 }
 
 .qrcode-tip {
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   margin: 0;
   font-weight: 600;
 }
 
 .info-icon {
-  font-size: 2rem;
+  font-size: 2.5rem;
   flex-shrink: 0;
 }
 
@@ -373,40 +199,41 @@ const contactInfo = [
 }
 
 .info-label {
-  font-size: 0.875rem;
+  font-size: 0.95rem;
   color: var(--text-tertiary);
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .info-value {
-  font-size: 1rem;
+  font-size: 1.125rem;
   font-weight: 600;
   color: var(--text-primary);
 }
 
 /* 工作时间 */
 .work-hours {
-  padding: 1.5rem;
+  padding: 2rem;
 }
 
 .work-hours-title {
-  font-size: 1.125rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--text-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
 }
 
 .work-hours-content {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
 }
 
 .work-hours-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
+  padding: 0.75rem 0;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -417,106 +244,16 @@ const contactInfo = [
 .day {
   color: var(--text-secondary);
   font-weight: 500;
+  font-size: 1rem;
 }
 
 .time {
   color: var(--text-primary);
   font-weight: 600;
-}
-
-/* 社交媒体 */
-.social-links {
-  padding: 1.5rem;
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-}
-
-.social-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-
-.social-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
-}
-
-.social-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 1rem;
-  background: var(--bg-secondary);
-  border-radius: 8px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.social-link:hover {
-  background: var(--accent-primary);
-  transform: translateY(-2px);
-}
-
-.social-link:hover .social-icon,
-.social-link:hover .social-name {
-  color: white;
-}
-
-.social-icon {
-  font-size: 1.5rem;
-}
-
-.social-name {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  transition: color 0.3s ease;
-}
-
-/* FAQ */
-.faq-section {
-  background: var(--bg-secondary);
-}
-
-.faq-list {
-  display: grid;
-  gap: 1.5rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
-
-.faq-item {
-  padding: 2rem;
-}
-
-.faq-question {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
-}
-
-.faq-answer {
-  color: var(--text-secondary);
-  line-height: 1.7;
+  font-size: 1rem;
 }
 
 /* 响应式 */
-@media (max-width: 968px) {
-  .contact-content {
-    grid-template-columns: 1fr;
-  }
-
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-}
-
 @media (max-width: 640px) {
   .page-title {
     font-size: 2rem;
@@ -526,12 +263,17 @@ const contactInfo = [
     font-size: 1rem;
   }
 
-  .contact-form-wrapper {
-    padding: 1.5rem;
+  .contact-info-item {
+    padding: 1.25rem;
   }
 
-  .social-grid {
-    grid-template-columns: 1fr;
+  .qrcode-image {
+    width: 180px;
+    height: 180px;
+  }
+
+  .work-hours {
+    padding: 1.5rem;
   }
 }
 </style>
