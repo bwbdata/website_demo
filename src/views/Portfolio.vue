@@ -17,6 +17,24 @@ const activeCategory = ref('全部')
 const projects = ref<Project[]>([
   {
     id: 1,
+    title: '黑白蜂健康',
+    category: '网站开发',
+    description: '专业的健康管理平台，提供健康咨询、体检预约、健康档案管理等功能',
+    image: '🏥',
+    tags: ['Vue 3', 'TypeScript', '健康管理'],
+    link: 'https://bwb-health.netlify.app/'
+  },
+  {
+    id: 2,
+    title: '黑白蜂摄影',
+    category: '网站开发',
+    description: '精美的摄影作品展示平台，支持作品分类、在线预约、摄影服务等功能',
+    image: '📷',
+    tags: ['Vue 3', 'TypeScript', '作品展示'],
+    link: 'https://bwb-photo.netlify.app/'
+  },
+  {
+    id: 3,
     title: '企业官网设计',
     category: '网站开发',
     description: '为某科技公司打造的现代化企业官网，采用响应式设计，支持多端访问',
@@ -24,7 +42,7 @@ const projects = ref<Project[]>([
     tags: ['Vue 3', 'TypeScript', '响应式设计']
   },
   {
-    id: 2,
+    id: 4,
     title: '电商平台开发',
     category: '网站开发',
     description: '完整的电商解决方案，包含商品管理、订单系统、支付集成等功能',
@@ -32,7 +50,7 @@ const projects = ref<Project[]>([
     tags: ['React', 'Node.js', '微信支付']
   },
   {
-    id: 3,
+    id: 5,
     title: '健身APP',
     category: 'APP开发',
     description: 'iOS和Android双平台健身应用，提供训练计划、数据追踪等功能',
@@ -40,7 +58,7 @@ const projects = ref<Project[]>([
     tags: ['React Native', 'iOS', 'Android']
   },
   {
-    id: 4,
+    id: 6,
     title: '外卖配送APP',
     category: 'APP开发',
     description: '实时定位、订单管理、骑手调度系统的完整外卖配送解决方案',
@@ -48,7 +66,7 @@ const projects = ref<Project[]>([
     tags: ['Flutter', '地图API', '实时通信']
   },
   {
-    id: 5,
+    id: 7,
     title: '在线教育小程序',
     category: '小程序',
     description: '微信小程序在线教育平台，支持视频课程、直播、作业提交等功能',
@@ -56,7 +74,7 @@ const projects = ref<Project[]>([
     tags: ['微信小程序', '视频播放', '直播']
   },
   {
-    id: 6,
+    id: 8,
     title: '餐饮点餐小程序',
     category: '小程序',
     description: '扫码点餐、在线支付、会员管理的智能餐饮小程序',
@@ -64,7 +82,7 @@ const projects = ref<Project[]>([
     tags: ['微信小程序', '支付', '会员系统']
   },
   {
-    id: 7,
+    id: 9,
     title: '智能家居控制系统',
     category: '其他',
     description: '物联网智能家居控制平台，支持多设备联动和远程控制',
@@ -72,7 +90,7 @@ const projects = ref<Project[]>([
     tags: ['IoT', 'WebSocket', '实时控制']
   },
   {
-    id: 8,
+    id: 10,
     title: '数据可视化大屏',
     category: '其他',
     description: '企业数据可视化展示大屏，实时数据更新和多维度分析',
@@ -112,15 +130,19 @@ const filterProjects = (category: string) => {
 
         <!-- 项目网格 -->
         <div class="projects-grid">
-          <div
+          <a
             v-for="project in filteredProjects"
             :key="project.id"
+            :href="project.link"
+            :target="project.link ? '_blank' : undefined"
+            :rel="project.link ? 'noopener noreferrer' : undefined"
             class="project-card card scale-in"
+            :class="{ 'has-link': project.link }"
           >
             <div class="project-image">
               <div class="project-emoji">{{ project.image }}</div>
               <div class="project-overlay">
-                <button class="view-btn">查看详情</button>
+                <button class="view-btn">{{ project.link ? '访问网站' : '查看详情' }}</button>
               </div>
             </div>
             <div class="project-content">
@@ -133,7 +155,7 @@ const filterProjects = (category: string) => {
                 </span>
               </div>
             </div>
-          </div>
+          </a>
         </div>
 
         <!-- 空状态 -->
@@ -229,6 +251,14 @@ const filterProjects = (category: string) => {
 .project-card {
   overflow: hidden;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.project-card.has-link:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
 }
 
 .project-image {
